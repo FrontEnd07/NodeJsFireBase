@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Учетный запись</title>  <!-- CORE CSS-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+        }
+
+        html {
+            display: table;
+            margin: auto;
+        }
+
+        body {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .margin {
+            margin: 0 !important;
+        }
+    </style>
+
+</head>
+<body class="green">
+<div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+        <div class="login-form login-div">
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <p class="center login-form-text" style="font-weight: 800; color: rgb(90, 128, 0);">Ваш учтный
+                        запись</p>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12" style="font-weight: 800; color: rgb(90, 128, 0);" id="wrapper">
+
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect green waves-light col s12" id="verify"
+                            onclick="sendVerificationEmail()">Подтвердить email
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect green waves-light col s12" id="register" onclick="logout()">Выйти
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCmXLJ5QhW2tfljxNKqz9LlDa9MLXQqvRQ",
+        authDomain: "tzforjunior.firebaseapp.com",
+        projectId: "tzforjunior",
+        storageBucket: "tzforjunior.appspot.com",
+        messagingSenderId: "419263096525",
+        appId: "1:419263096525:web:1c0cc8e00aea2a4c602b84"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            const {emailVerified, email} = user;
+            var data = '<h4> Привет, ' + email + '</h4>' +
+                '<h4>Аккаунт подтвержден: ' + emailVerified + '</h1>';
+            document.getElementById("wrapper").innerHTML = data
+            if (emailVerified == true) {
+                document.getElementById("verify").style.display = "none"
+            }
+        } else {
+            console.log("No one here")
+        }
+    });
+
+    function sendVerificationEmail() {
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then(function () {
+            window.alert("Verification link sent to your email. Kinldy check to verify your account")
+        }).catch(function (error) {
+            // An error happened.
+        });
+    }
+
+    function logout() {
+        firebase.auth().signOut().then(() => {
+            window.location.assign("/Login");
+        });
+    }
+</script>
+</body>
+</html>

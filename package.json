@@ -1,0 +1,26 @@
+{
+  "name": "NodejsFireBase",
+  "version": "1.0.0",
+  "description": "\"# NodeJsFireBase\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrontEnd07/NodeJsFireBase.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrontEnd07/NodeJsFireBase/issues"
+  },
+  "homepage": "https://github.com/FrontEnd07/NodeJsFireBase#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15"
+  }
+}
